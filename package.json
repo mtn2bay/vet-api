@@ -1,0 +1,26 @@
+{
+  "name": "graphql-mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -r dotenv/config app.js --exec 'npm run lint && node'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.9.7",
+    "apollo-server-express": "^2.9.7",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.9"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "eslint": "^6.6.0",
+    "nodemon": "^1.19.4"
+  }
+}
