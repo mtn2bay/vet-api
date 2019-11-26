@@ -2,7 +2,7 @@ name: Deploy to Google Cloud Run
 on:
   push:
     branches:
-      - 'master'
+      - "master"
 
 jobs:
   deploy:
@@ -21,14 +21,10 @@ jobs:
           GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
 
       - name: Configure Docker to use Google Cloud Platform
-        uses: actions/gcloud/cli@master
-        with:
-          args: "auth configure-docker --quiet"
+        run: "gcloud auth configure-docker --quiet"
 
       - name: Push image to Google Cloud Container Registry
         run: "docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
 
       - name: Deploy to Cloud Run
-        uses: actions/gcloud/cli@master
-        with:
-          args: "gcloud run deploy ${{ secrets.GCLOUD_APP_NAME }} --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
+        run: "gcloud run deploy ${{ secrets.GCLOUD_APP_NAME }} --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
