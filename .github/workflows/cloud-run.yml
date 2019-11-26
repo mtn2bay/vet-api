@@ -13,9 +13,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Build Docker image
-        uses: actions/docker/cli@master
-        with:
-          args: "docker build -t gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
+        run: "docker build -t gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
 
       - name: Authenticate Google Cloud Platform
         uses: actions/gcloud/auth@master
@@ -28,10 +26,7 @@ jobs:
           args: "auth configure-docker --quiet"
 
       - name: Push image to Google Cloud Container Registry
-        uses: actions/gcloud/cli@master
-        with:
-          entrypoint: sh
-          args: -c "docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
+        run: "docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
 
       - name: Deploy to Cloud Run
         uses: actions/gcloud/cli@master
