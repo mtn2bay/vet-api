@@ -23,9 +23,6 @@ jobs:
       - name: Configure Docker to use Google Cloud Platform
         run: "gcloud auth configure-docker --quiet"
 
-      - name: Log into Google Cloud
-        run: "gcloud auth login"
-
       - name: Set Google Cloud account
         run: "gcloud config set account ${{ secrets.GCLOUD_ACCOUNT }}"
 
