@@ -1,4 +1,4 @@
-name: Deploy the application to Google Cloud Run
+name: Deploy to Google Cloud Run
 on:
   push:
     branches:
@@ -17,7 +17,7 @@ jobs:
         with:
           args: "docker build -t gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
 
-      - name: Authenticate into Google Cloud Platform
+      - name: Authenticate Google Cloud Platform
         uses: actions/gcloud/auth@master
         env:
           GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
@@ -33,7 +33,7 @@ jobs:
           entrypoint: sh
           args: -c "docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
 
-      - name: Install beta commands and deploy on cloud run
+      - name: Deploy to Cloud Run
         uses: actions/gcloud/cli@master
         with:
-          args: "components install --quiet && gcloud run deploy ${{ secrets.GCLOUD_APP_NAME }} --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
+          args: "gcloud run deploy ${{ secrets.GCLOUD_APP_NAME }} --quiet --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}"
